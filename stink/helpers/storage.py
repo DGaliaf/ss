@@ -83,6 +83,7 @@ class MemoryStorage:
         }
         browsers = {
             "Cookies": 0,
+            "CookiesRaw": 0,
             "Passwords": 0,
             "History": 0,
             "Bookmarks": 0,
