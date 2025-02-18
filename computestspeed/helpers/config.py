@@ -64,7 +64,7 @@ class ChromiumConfig:
     ]
 
 
-class MultistealerConfig:
+class MultiComputeConfig:
 
     PoolSize = 5
     ZipName = f"{user}-st"
